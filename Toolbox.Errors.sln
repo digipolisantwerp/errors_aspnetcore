@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{74EC6A07-3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56DAE3CF-93FC-4DB6-91C1-4FF7F62B5668}"
 	ProjectSection(SolutionItems) = preProject
+		changelog.md = changelog.md
 		global.json = global.json
 		NuGet.Config = NuGet.Config
 		readme.md = readme.md
