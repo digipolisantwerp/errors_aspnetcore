@@ -12,7 +12,6 @@ namespace Toolbox.Errors.UnitTests.Exceptions.UnauthorizedExceptionTests
         private void PropertiesAreDefaulted()
         {
             var ex = new UnauthorizedException();
-            Assert.Equal(Defaults.UnauthorizedException.HttpStatusCode, ex.HttpStatusCode);
             Assert.Equal(Defaults.UnauthorizedException.Message, ex.Message);
             Assert.NotNull(ex.Error);
             Assert.Equal(1, ex.Error.Messages.Count());
@@ -23,7 +22,6 @@ namespace Toolbox.Errors.UnitTests.Exceptions.UnauthorizedExceptionTests
         private void MessageIsSet()
         {
             var ex = new UnauthorizedException("access denied");
-            Assert.Equal(Defaults.UnauthorizedException.HttpStatusCode, ex.HttpStatusCode);
             Assert.Equal("access denied", ex.Message);
             Assert.NotNull(ex.Error);
             Assert.Equal(1, ex.Error.Messages.Count());
@@ -35,7 +33,6 @@ namespace Toolbox.Errors.UnitTests.Exceptions.UnauthorizedExceptionTests
         {
             var error = new Error("id");
             var ex = new UnauthorizedException(error);
-            Assert.Equal(Defaults.UnauthorizedException.HttpStatusCode, ex.HttpStatusCode);
             Assert.Equal(Defaults.UnauthorizedException.Message, ex.Message);
             Assert.Same(error, ex.Error);
         }

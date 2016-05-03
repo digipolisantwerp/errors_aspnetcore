@@ -12,7 +12,6 @@ namespace Toolbox.Errors.UnitTests.Exceptions.NotFoundExceptionTests
         private void PropertiesAreDefaulted()
         {
             var ex = new NotFoundException();
-            Assert.Equal(Defaults.NotFoundException.HttpStatusCode, ex.HttpStatusCode);
             Assert.Equal(Defaults.NotFoundException.Message, ex.Message);
             Assert.NotNull(ex.Error);
             Assert.Equal(1, ex.Error.Messages.Count());
@@ -23,7 +22,6 @@ namespace Toolbox.Errors.UnitTests.Exceptions.NotFoundExceptionTests
         private void MessageIsSet()
         {
             var ex = new NotFoundException("not found");
-            Assert.Equal(Defaults.NotFoundException.HttpStatusCode, ex.HttpStatusCode);
             Assert.Equal("not found", ex.Message);
             Assert.NotNull(ex.Error);
             Assert.Equal(1, ex.Error.Messages.Count());
@@ -35,7 +33,6 @@ namespace Toolbox.Errors.UnitTests.Exceptions.NotFoundExceptionTests
         {
             var error = new Error("id");
             var ex = new NotFoundException(error);
-            Assert.Equal(Defaults.NotFoundException.HttpStatusCode, ex.HttpStatusCode);
             Assert.Equal(Defaults.NotFoundException.Message, ex.Message);
             Assert.Same(error, ex.Error);
         }

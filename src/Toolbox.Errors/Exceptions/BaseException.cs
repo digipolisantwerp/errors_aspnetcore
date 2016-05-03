@@ -23,7 +23,6 @@ namespace Toolbox.Errors.Exceptions
             Error = error;
         }
         
-        public int HttpStatusCode { get; set; } = Defaults.BaseException.HttpStatusCode;
         public Error Error { get; set; }
 
         protected void CreateDefaultError(string message)
