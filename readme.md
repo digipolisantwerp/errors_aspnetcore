@@ -76,6 +76,14 @@ var errorMessages = new ErrorMessage[] { errorMessage1, errorMessage2 };
 var error = new Error("id", errorMessages: errorMessages);
 ``` 
 
+Another constructor overload accepts an ErrorMessage that will be added to the Messages collection.
+
+``` csharp
+var errorMessage1 = new ErrorMessage("key1", "message1");
+
+var error = new Error("id", errorMessage1);
+```
+
 The Error object contains several methods to add messages.
 
 ### AddErrorMessage

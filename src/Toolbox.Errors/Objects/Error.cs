@@ -17,6 +17,13 @@ namespace Toolbox.Errors
             _messages = errorMessages == null ? new List<ErrorMessage>() : new List<ErrorMessage>(errorMessages);
         }
 
+        public Error(string id, ErrorMessage errorMessage)
+        {
+            AssertNotNullOrWhiteSpace(id, nameof(id));
+            Id = id;
+            _messages = new List<ErrorMessage> { errorMessage };
+        }
+
         public string Id { get; private set; }
 
         private List<ErrorMessage> _messages;

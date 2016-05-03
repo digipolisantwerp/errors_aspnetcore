@@ -70,5 +70,16 @@ namespace Toolbox.Errors.UnitTests.Objects.ErrorTests
             Assert.NotNull(error.Messages);
             Assert.Equal(0, error.Messages.Count());
         }
+
+        [Fact]
+        private void ErrorMessageIsSet()
+        {
+            var errorMessage1 = new ErrorMessage("key1", "message1");
+
+            var error = new Error("id", errorMessage1);
+
+            Assert.Equal(1, error.Messages.Count());
+            Assert.Contains(errorMessage1, error.Messages);
+        }
     }
 }

@@ -31,13 +31,6 @@ namespace Toolbox.Errors.UnitTests.Exceptions.BaseExceptionTests
         }
 
         [Fact]
-        private void HttpStatusCodeIsDefaulted()
-        {
-            var ex = new BaseException();
-            Assert.Equal(Defaults.BaseException.HttpStatusCode, ex.HttpStatusCode);
-        }
-
-        [Fact]
         private void ErrorIsSet()
         {
             var error = new Error("id");
