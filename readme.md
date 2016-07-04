@@ -29,7 +29,7 @@ Adding the DataAccess Toolbox to a project is as easy as adding it to the projec
 
 ``` json
  "dependencies": {
-    "Digipolis.Toolbox.Errors":  "2.0.0", 
+    "Digipolis.Errors":  "2.0.0", 
  }
 ```
 
