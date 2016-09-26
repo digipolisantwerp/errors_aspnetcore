@@ -1,20 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using Digipolis.Errors.Internal;
 
 namespace Digipolis.Errors.Exceptions
 {
     public class ValidationException : BaseException
     {
-        public ValidationException() : base(Defaults.ValidationException.Message)
-        {
-        }
-
-        public ValidationException(string message) : base(message)
-        {
-        }
-
-        public ValidationException(Error error) : base(error, Defaults.ValidationException.Message)
-        {
-        }
+        public ValidationException(string message = Defaults.ValidationException.Title, Exception exception = null, Dictionary<string, IEnumerable<string>> messages = null)
+            : base(message, exception, messages)
+        { }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Digipolis.Errors.Exceptions;
 using Digipolis.Errors.Internal;
@@ -12,10 +13,8 @@ namespace Digipolis.Errors.UnitTests.Exceptions.ValidationExceptionTests
         private void PropertiesAreDefaulted()
         {
             var ex = new ValidationException();
-            Assert.Equal(Defaults.ValidationException.Message, ex.Message);
-            Assert.NotNull(ex.Error);
-            Assert.Equal(1, ex.Error.Messages.Count());
-            Assert.Equal(Defaults.ValidationException.Message, ex.Error.Messages.First().Message);
+            Assert.Equal(Defaults.ValidationException.Title, ex.Message);
+            Assert.NotNull(ex.Messages);
         }
 
         [Fact]
@@ -23,18 +22,30 @@ namespace Digipolis.Errors.UnitTests.Exceptions.ValidationExceptionTests
         {
             var ex = new ValidationException("validation failed");
             Assert.Equal("validation failed", ex.Message);
-            Assert.NotNull(ex.Error);
-            Assert.Equal(1, ex.Error.Messages.Count());
-            Assert.Equal("validation failed", ex.Error.Messages.First().Message);
+            Assert.NotNull(ex.Messages);
         }
 
         [Fact]
-        private void ErrorIsSet()
+        private void MessageAndInnerExceptionAreSetInProperties()
         {
-            var error = new Error("id");
-            var ex = new ValidationException(error);
-            Assert.Equal(Defaults.ValidationException.Message, ex.Message);
-            Assert.Same(error, ex.Error);
+            var innerEx = new Exception("innerMessage");
+            var ex = new ValidationException("validation failed", innerEx);
+            Assert.Equal("validation failed", ex.Message);
+            Assert.Same(innerEx, ex.InnerException);
+        }
+
+        [Fact]
+        private void MessageAndInnerExceptionAndExtraParametersAreSetInProperties()
+        {
+            var messages = new Dictionary<string, IEnumerable<string>>();
+            var message = new[] { "message1", "message2" };
+            messages.Add("key1", message);
+            var innerEx = new Exception("innerMessage");
+
+            var ex = new ValidationException("validation failed", innerEx, messages);
+            Assert.Equal("validation failed", ex.Message);
+            Assert.Same(innerEx, ex.InnerException);
+            Assert.Same(messages, ex.Messages);
         }
     }
 }
