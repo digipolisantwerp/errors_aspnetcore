@@ -39,6 +39,16 @@ namespace Digipolis.Errors.UnitTests.Exceptions.BaseExceptionTests
         }
 
         [Fact]
+        private void DefaultEmptyKeyAddsToCollection()
+        {
+            var ex = new ExceptionTester();
+            ex.AddMessage(Defaults.ErrorMessage.Key, "aMessage");
+
+            Assert.Equal(1, ex.Messages.Count);
+            Assert.Contains("aMessage", ex.Messages.First().Value);
+        }
+
+        [Fact]
         private void NullMessageWithValidKeyIsNotAddedToMessagesCollection()
         {
             var ex = new ExceptionTester();

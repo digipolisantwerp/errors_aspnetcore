@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using NuGet.Packaging;
 using Xunit;
 
-namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
+namespace Digipolis.Errors.UnitTests.ExceptionMapper
 {
-    public class ToStringTests
+    public class ExceptionMapperTests
     {
         [Fact]
         private void ToStringContainsId()

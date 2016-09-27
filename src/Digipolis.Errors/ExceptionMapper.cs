@@ -51,6 +51,12 @@ namespace Digipolis.Errors
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
         }
 
+        public void CreateMap<TException>(int statusCode) where TException : Exception
+        {
+            Action<Error, Exception> action = (x, y) => x.Status = statusCode;
+            _errorMappings.TryAdd(typeof(TException), action);
+        }
+
         public void CreateMap<TException>(Action<Error, TException> configError) where TException : Exception
         {
             Action<Error, Exception> action = (x, y) => configError(x, (TException)y);

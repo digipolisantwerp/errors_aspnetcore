@@ -112,5 +112,32 @@ namespace Digipolis.Errors.UnitTests.Exceptions.UnauthorizedExceptionTests
             var result = Assert.Throws<ArgumentNullException>(() => ex.AddMessages(null, messages));
             Assert.Equal("key", result.ParamName);
         }
+
+        [Fact]
+        private void NonDefaultEmptyKeyMessagesCollectionThrowsException()
+        {
+            var message1 = "message1";
+            var message2 = "messages2";
+            var messages = new string[] { message1, message2 };
+
+            var ex = new UnauthorizedException();
+            var result = Assert.Throws<ArgumentNullException>(() => ex.AddMessages(" ", messages));
+            Assert.Equal("key", result.ParamName);
+        }
+
+        [Fact]
+        private void DefaultEmptyKeyMessagesCollectionAddedToCollection()
+        {
+            var message1 = "message1";
+            var message2 = "messages2";
+            var messages = new string[] { message1, message2 };
+
+            var ex = new UnauthorizedException();
+            ex.AddMessages(Defaults.ErrorMessage.Key, messages);
+
+            Assert.Equal(1, ex.Messages.Count);
+            Assert.Contains(message1, ex.Messages.First().Value);
+            Assert.Contains(message2, ex.Messages.First().Value);
+        }
     }
 }

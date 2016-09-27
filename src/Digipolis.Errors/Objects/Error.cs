@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using Digipolis.Errors.Internal;
 
 namespace Digipolis.Errors
@@ -51,6 +54,30 @@ namespace Digipolis.Errors
 
             Identifier = identifier;
             ExtraParameters = extraParameters ?? new Dictionary<string, object>();
+        }
+
+        public override string ToString()
+        {
+            var builder = new StringBuilder($"Error ( Id = {Identifier}, Messages = ");
+            if (!ExtraParameters.Any())
+                builder.Append("'none' )");
+            else
+            {
+                
+                foreach (var message in ExtraParameters)
+                {
+                    string errorMessage;
+                    var type = message.Value.GetType();
+                    if (type != typeof(string) && type.GetTypeInfo().GetInterface("IEnumerable") != null)
+                    {
+                        errorMessage = string.Join(", ", (IEnumerable<object>) message.Value);
+                    }
+                    else errorMessage = message.Value.ToString();
+                    builder.Append($"ErrorMessage ( Key = {message.Key}, Message = {errorMessage} ), ");
+                }
+                builder.Remove(builder.Length - 2, 2);
+            }
+            return builder.ToString();
         }
     }
 }

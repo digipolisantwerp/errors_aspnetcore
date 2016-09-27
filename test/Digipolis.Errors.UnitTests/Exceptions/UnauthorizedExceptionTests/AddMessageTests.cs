@@ -54,5 +54,15 @@ namespace Digipolis.Errors.UnitTests.Exceptions.UnauthorizedExceptionTests
             ex.AddMessage(string.Empty);
             Assert.Equal(0, ex.Messages.Count);
         }
+
+        [Fact]
+        private void DefaultEmptyKeyAddsToCollection()
+        {
+            var ex = new UnauthorizedException();
+            ex.AddMessage(Defaults.ErrorMessage.Key, "aMessage");
+
+            Assert.Equal(1, ex.Messages.Count);
+            Assert.Contains("aMessage", ex.Messages.First().Value);
+        }
     }
 }

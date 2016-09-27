@@ -29,7 +29,7 @@ namespace Digipolis.Errors.Exceptions
 
         public void AddMessage(string key, string message)
         {
-            if (string.IsNullOrWhiteSpace(key))
+            if (string.IsNullOrWhiteSpace(key) && !Defaults.ErrorMessage.Key.Equals(key))
                 throw new ArgumentNullException(nameof(key));
 
             if (!string.IsNullOrWhiteSpace(message)) AddMessages(key, new[] { message });
@@ -44,7 +44,7 @@ namespace Digipolis.Errors.Exceptions
         {
             if (messages == null || !messages.Any()) return;
 
-            if (string.IsNullOrWhiteSpace(key))
+            if (string.IsNullOrWhiteSpace(key) && !Defaults.ErrorMessage.Key.Equals(key))
                 throw new ArgumentNullException(nameof(key));
 
             if (Messages.ContainsKey(key))

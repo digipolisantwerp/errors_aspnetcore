@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Digipolis.Errors.Exceptions;
 using Digipolis.Errors.Internal;
 
-namespace Digipolis.Errors.Exceptions
+namespace Digipolis.Errors.UnitTests.Exceptions.BaseExceptionTests
 {
     internal class ExceptionTester : BaseException
     {
