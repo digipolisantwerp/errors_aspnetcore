@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using Digipolis.Errors.Exceptions;
+using Digipolis.Errors.Internal;
 using Xunit;
 
 namespace Digipolis.Errors.UnitTests.ExceptionMapper
@@ -7,37 +10,73 @@ namespace Digipolis.Errors.UnitTests.ExceptionMapper
     public class ExceptionMapperTests
     {
         [Fact]
-        private void ToStringContainsId()
+        private void DefaultMappingOnConstruction()
         {
-            var id = Guid.NewGuid();
-            var error = new Error(id);
-            Assert.Contains(id.ToString(), error.ToString());
+            var mapper = new ExceptionMapperTester();
+            Assert.NotNull(mapper.Resolve(new Exception()));
+            Assert.NotNull(mapper.Resolve(new NotFoundException()));
+            Assert.NotNull(mapper.Resolve(new UnauthorizedException()));
+            Assert.NotNull(mapper.Resolve(new ValidationException()));
         }
 
         [Fact]
-        private void ToStringContainsMessagesCollection()
+        private void RetrieveFrameworkMappedExceptionError()
         {
-            var id = Guid.NewGuid();
-            var errorMessage1 = "message1";
-            var errorMessage2 = "message2";
-            var messages = new Dictionary<string, object> { { "key1", errorMessage1 }, { "key2", errorMessage2 } };
-            var error = new Error(id, messages);
+            var mapper = new ExceptionMapperTester();
+            var error = mapper.Resolve(new NotFoundException());
 
-            Assert.Contains("message1", error.ToString());
-            Assert.Contains("message2", error.ToString());
+            Assert.NotNull(error);
+            Assert.Equal(Defaults.NotFoundException.Title, error.Title);
+            Assert.Equal(Defaults.NotFoundException.Code, error.Code);
+            Assert.Equal((int)HttpStatusCode.NotFound, error.Status);
         }
 
         [Fact]
-        private void ToStringContainsMessagesCollections()
+        private void RetrieveMappedExceptionError()
         {
-            var id = Guid.NewGuid();
-            var errorMessage1 = "message1";
-            var errorMessage2 = "message2";
-            var messages = new Dictionary<string, object> { { "key1", new[] { errorMessage1, errorMessage2 } } };
-            var error = new Error(id, messages);
+            var mapper = new ExceptionMapperTester();
+            var error = mapper.Resolve(new NotImplementedException());
 
-            Assert.Contains("message1", error.ToString());
-            Assert.Contains("message2", error.ToString());
+            Assert.NotNull(error);
+            Assert.Equal("Methode call not allowed", error.Title);
+            Assert.Equal("NOTF001", error.Code);
+            Assert.Equal((int)HttpStatusCode.NotFound, error.Status);
+        }
+
+        [Fact]
+        private void RetrieveUnMappedExceptionError()
+        {
+            var mapper = new ExceptionMapperTester();
+            var error = mapper.Resolve(new AggregateException());
+
+            Assert.NotNull(error);
+            Assert.Equal("We are currently experiencing a technical error", error.Title);
+            Assert.Equal("TECHE001", error.Code);
+            Assert.Equal((int)HttpStatusCode.InternalServerError, error.Status);
+        }
+
+        [Fact]
+        private void RetrieveMappedExceptionErrorByStatusCode()
+        {
+            var mapper = new ExceptionMapperTester();
+            var error = mapper.Resolve(new UnauthorizedAccessException());
+
+            Assert.NotNull(error);
+            Assert.Null(error.Title);
+            Assert.Null(error.Code);
+            Assert.Equal((int)HttpStatusCode.Forbidden, error.Status);
+        }
+
+        [Fact]
+        private void ResolveEmptyExceptionReturnsDefaultError()
+        {
+            var mapper = new ExceptionMapperTester();
+            var error = mapper.Resolve(null);
+
+            Assert.NotNull(error);
+            Assert.Equal("We are currently experiencing a technical error", error.Title);
+            Assert.Equal("TECHE001", error.Code);
+            Assert.Equal((int)HttpStatusCode.InternalServerError, error.Status);
         }
     }
 }

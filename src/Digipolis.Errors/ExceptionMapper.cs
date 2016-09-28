@@ -23,11 +23,11 @@ namespace Digipolis.Errors
             Configure();
         }
 
-        public abstract void Configure();
+        protected abstract void Configure();
 
-        public abstract void CreateDefaultMap(Error error, Exception exception);
+        protected abstract void CreateDefaultMap(Error error, Exception exception);
 
-        public virtual void CreateNotFoundMap(Error error, NotFoundException exception)
+        protected virtual void CreateNotFoundMap(Error error, NotFoundException exception)
         {
             error.Title = Defaults.NotFoundException.Title;
             error.Code = Defaults.NotFoundException.Code;
@@ -35,7 +35,7 @@ namespace Digipolis.Errors
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
         }
 
-        public virtual void CreateUnauthorizedMap(Error error, UnauthorizedException exception)
+        protected virtual void CreateUnauthorizedMap(Error error, UnauthorizedException exception)
         {
             error.Title = Defaults.UnauthorizedException.Title;
             error.Code = Defaults.UnauthorizedException.Code;
@@ -43,7 +43,7 @@ namespace Digipolis.Errors
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
         }
 
-        public virtual void CreateValidationMap(Error error, ValidationException exception)
+        protected virtual void CreateValidationMap(Error error, ValidationException exception)
         {
             error.Title = Defaults.ValidationException.Title;
             error.Code = Defaults.ValidationException.Code;
@@ -51,13 +51,13 @@ namespace Digipolis.Errors
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
         }
 
-        public void CreateMap<TException>(int statusCode) where TException : Exception
+        protected void CreateMap<TException>(int statusCode) where TException : Exception
         {
             Action<Error, Exception> action = (x, y) => x.Status = statusCode;
             _errorMappings.TryAdd(typeof(TException), action);
         }
 
-        public void CreateMap<TException>(Action<Error, TException> configError) where TException : Exception
+        protected void CreateMap<TException>(Action<Error, TException> configError) where TException : Exception
         {
             Action<Error, Exception> action = (x, y) => configError(x, (TException)y);
             _errorMappings.TryAdd(typeof(TException), action);
@@ -65,7 +65,7 @@ namespace Digipolis.Errors
 
         protected Error Map(Exception exception)
         {
-            var type = exception.GetType();
+            var type = exception?.GetType() ?? typeof(Exception);
             var error = new Error();
 
             if (_errorMappings.ContainsKey(type))
@@ -82,9 +82,9 @@ namespace Digipolis.Errors
         {
             var error = Map(exception);
 
-            var validationException = exception as ValidationException;
-            if (validationException != null)
-                error.ExtraParameters = validationException.Messages.ToDictionary(x => x.Key, x => (object)x.Value);
+            var baseException = exception as BaseException;
+            if (baseException != null)
+                error.ExtraParameters = baseException.Messages.ToDictionary(x => x.Key, x => (object)x.Value);
 
             return error;
         }
