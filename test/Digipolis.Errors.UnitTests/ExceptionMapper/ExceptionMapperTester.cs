@@ -14,17 +14,17 @@ namespace Digipolis.Errors.UnitTests.ExceptionMapper
         {
             CreateMap<NotImplementedException>((error, ex) =>
             {
-                error.Status = (int) HttpStatusCode.NotFound;
+                error.Status = 404;
                 error.Title = "Methode call not allowed";
                 error.Code = "NOTF001";
             });
 
-            CreateMap<UnauthorizedAccessException>((int)HttpStatusCode.Forbidden);
+            CreateMap<UnauthorizedAccessException>(403);
         }
 
         protected override void CreateDefaultMap(Error error, Exception exception)
         {
-            error.Status = (int) HttpStatusCode.InternalServerError;
+            error.Status = 500;
             error.Title = "We are currently experiencing a technical error";
             error.Code = "TECHE001";
         }
@@ -33,7 +33,7 @@ namespace Digipolis.Errors.UnitTests.ExceptionMapper
         {
             error.Title = Defaults.NotFoundException.Title;
             error.Code = Defaults.NotFoundException.Code;
-            error.Status = (int)HttpStatusCode.NotFound;
+            error.Status = 404;
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
         }
 
@@ -45,7 +45,7 @@ namespace Digipolis.Errors.UnitTests.ExceptionMapper
         {
             error.Title = Defaults.ValidationException.Title;
             error.Code = Defaults.ValidationException.Code;
-            error.Status = (int)HttpStatusCode.BadRequest;
+            error.Status = 400;
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
         }
     }

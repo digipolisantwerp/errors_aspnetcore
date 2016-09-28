@@ -28,7 +28,7 @@ namespace Digipolis.Errors.UnitTests.ExceptionMapper
             Assert.NotNull(error);
             Assert.Equal(Defaults.NotFoundException.Title, error.Title);
             Assert.Equal(Defaults.NotFoundException.Code, error.Code);
-            Assert.Equal((int)HttpStatusCode.NotFound, error.Status);
+            Assert.Equal(404, error.Status);
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace Digipolis.Errors.UnitTests.ExceptionMapper
             Assert.NotNull(error);
             Assert.Equal("Methode call not allowed", error.Title);
             Assert.Equal("NOTF001", error.Code);
-            Assert.Equal((int)HttpStatusCode.NotFound, error.Status);
+            Assert.Equal(404, error.Status);
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace Digipolis.Errors.UnitTests.ExceptionMapper
             Assert.NotNull(error);
             Assert.Equal("We are currently experiencing a technical error", error.Title);
             Assert.Equal("TECHE001", error.Code);
-            Assert.Equal((int)HttpStatusCode.InternalServerError, error.Status);
+            Assert.Equal(500, error.Status);
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace Digipolis.Errors.UnitTests.ExceptionMapper
             Assert.NotNull(error);
             Assert.Null(error.Title);
             Assert.Null(error.Code);
-            Assert.Equal((int)HttpStatusCode.Forbidden, error.Status);
+            Assert.Equal(403, error.Status);
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace Digipolis.Errors.UnitTests.ExceptionMapper
             Assert.NotNull(error);
             Assert.Equal("We are currently experiencing a technical error", error.Title);
             Assert.Equal("TECHE001", error.Code);
-            Assert.Equal((int)HttpStatusCode.InternalServerError, error.Status);
+            Assert.Equal(500, error.Status);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Digipolis.Errors
         {
             error.Title = Defaults.NotFoundException.Title;
             error.Code = Defaults.NotFoundException.Code;
-            error.Status = (int) HttpStatusCode.NotFound;
+            error.Status = 404;
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
         }
 
@@ -39,7 +39,7 @@ namespace Digipolis.Errors
         {
             error.Title = Defaults.UnauthorizedException.Title;
             error.Code = Defaults.UnauthorizedException.Code;
-            error.Status = (int)HttpStatusCode.Forbidden;
+            error.Status = 403;
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
         }
 
@@ -47,10 +47,15 @@ namespace Digipolis.Errors
         {
             error.Title = Defaults.ValidationException.Title;
             error.Code = Defaults.ValidationException.Code;
-            error.Status = (int)HttpStatusCode.BadRequest;
+            error.Status = 400;
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
         }
 
+        /// <summary>
+        /// Used to map an exception to a specific status code
+        /// </summary>
+        /// <typeparam name="TException"></typeparam>
+        /// <param name="statusCode"></param>
         protected void CreateMap<TException>(int statusCode) where TException : Exception
         {
             Action<Error, Exception> action = (x, y) => x.Status = statusCode;
