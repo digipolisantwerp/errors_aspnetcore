@@ -7,9 +7,12 @@ This toolbox contains objects and exceptions for error handling.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Installation](#installation)
-- [ExceptionMapper](#ExceptionMapper)
+- [ExceptionMapper](#exceptionmapper)
+  - [Configure mappings](#configure-mappings)
+  - [Mapping exceptions](#mapping-exceptions)
+  - [Default mappings](#default-mappings)
+  - [Resolving exceptions](#resolving-exceptions) 
 - [Error object](#error-object)
   - [ToString](#tostring)
 - [Exceptions](#exceptions)
@@ -51,7 +54,7 @@ Configure method.
 
 - Configure is where the mappings are made between Exceptions and [Error objects](#error-object).
 
-### Mapping exceptions in the Configure method
+### Mapping exceptions
 To configure mappings you can use two method:
 ``` csharp
 /// <summary>
@@ -216,7 +219,7 @@ public Dictionary<string, IEnumerable<string>> Messages { get; protected set; }
 ```
 - This Messages property will contain all additional messages you want to copy over to the ExtraParameters property 
 of the [Error object](#error-object) when resolving it through the [Resolve](#resolving-exceptions) 
-function of the [ExceptionMapper](#ExceptionMapper).
+function of the [ExceptionMapper](#exceptionmapper).
 
 ### AddMessage
 
