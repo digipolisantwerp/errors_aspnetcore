@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using NuGet.Packaging;
 using Xunit;
 
 namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
@@ -10,76 +12,74 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
         private void IdIsDefaulted()
         {
             var error = new Error();
-            Assert.NotNull(error.Id);
-            Assert.NotEmpty(error.Id);
+            Assert.NotNull(error.Identifier);
+            Assert.NotEqual(Guid.Empty, error.Identifier);
         }
 
         [Fact]
         private void IdIsSet()
         {
-            var error = new Error("12345");
-            Assert.Equal("12345", error.Id);
-        }
-
-        [Fact]
-        private void IdNullRaisesArgumentNullException()
-        {
-            var ex = Assert.Throws<ArgumentNullException>(() => new Error(null));
-            Assert.Equal("id", ex.ParamName);
+            var id = Guid.NewGuid();
+            var error = new Error(id);
+            Assert.Equal(id, error.Identifier);
         }
 
         [Fact]
         private void IdEmptyRaisesArgumentException()
         {
-            var ex = Assert.Throws<ArgumentException>(() => new Error(""));
-            Assert.Equal("id", ex.ParamName);
-        }
-
-        [Fact]
-        private void IdWhiteSpaceRaisesArgumentException()
-        {
-            var ex = Assert.Throws<ArgumentException>(() => new Error("  "));
-            Assert.Equal("id", ex.ParamName);
+            var ex = Assert.Throws<ArgumentException>(() => new Error(Guid.Empty));
+            Assert.Equal("identifier", ex.ParamName);
         }
 
         [Fact]
         private void MessagesIsInstantiated()
         {
-            var error = new Error("id");
-            Assert.NotNull(error.Messages);
+            var error = new Error();
+            Assert.NotNull(error.ExtraParameters);
+        }
+
+        [Fact]
+        private void MessagesIsInstantiatedByConstructor()
+        {
+            var error = new Error(extraParameters: null);
+            Assert.NotNull(error.ExtraParameters);
         }
 
         [Fact]
         private void ErrorMessagesIsSet()
         {
-            var errorMessage1 = new ErrorMessage("key1", "message1");
-            var errorMessage2 = new ErrorMessage("key2", "message2");
-            var errorMessages = new ErrorMessage[] { errorMessage1, errorMessage2 };
+            var errorMessage1 = new KeyValuePair<string, object>("key1", "message1");
+            var errorMessage2 = new KeyValuePair<string, object>("key2", "message2");
+            var errorMessages = new Dictionary<string, object>();
+            errorMessages.AddRange(new []{ errorMessage1, errorMessage2 });
 
-            var error = new Error("id", errorMessages: errorMessages);
+            var error = new Error(errorMessages);
 
-            Assert.Equal(2, error.Messages.Count());
-            Assert.Contains(errorMessage1, error.Messages);
-            Assert.Contains(errorMessage2, error.Messages);
+            Assert.Equal(2, error.ExtraParameters.Count);
+            Assert.Contains(errorMessage1, error.ExtraParameters);
+            Assert.Contains(errorMessage2, error.ExtraParameters);
         }
 
         [Fact]
         private void ErrorMessagesNullInstantiatesEmptyMessageCollection()
         {
-            var error = new Error("id", errorMessages: null);
-            Assert.NotNull(error.Messages);
-            Assert.Equal(0, error.Messages.Count());
+            var error = new Error(extraParameters: null);
+            Assert.NotNull(error.ExtraParameters);
+            Assert.Equal(0, error.ExtraParameters.Count);
         }
 
         [Fact]
         private void ErrorMessageIsSet()
         {
-            var errorMessage1 = new ErrorMessage("key1", "message1");
+            var errorMessage1 = new KeyValuePair<string, object>("key1", "message1");
+            var errorMessages = new Dictionary<string, object>();
+            errorMessages.AddRange(new[] { errorMessage1 });
 
-            var error = new Error("id", errorMessage1);
 
-            Assert.Equal(1, error.Messages.Count());
-            Assert.Contains(errorMessage1, error.Messages);
+            var error = new Error(errorMessages);
+
+            Assert.Equal(1, error.ExtraParameters.Count);
+            Assert.Contains(errorMessage1, error.ExtraParameters);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Digipolis.Errors.Exceptions;
 using Digipolis.Errors.Internal;
@@ -12,10 +13,8 @@ namespace Digipolis.Errors.UnitTests.Exceptions.UnauthorizedExceptionTests
         private void PropertiesAreDefaulted()
         {
             var ex = new UnauthorizedException();
-            Assert.Equal(Defaults.UnauthorizedException.Message, ex.Message);
-            Assert.NotNull(ex.Error);
-            Assert.Equal(1, ex.Error.Messages.Count());
-            Assert.Equal(Defaults.UnauthorizedException.Message, ex.Error.Messages.First().Message);
+            Assert.Equal(Defaults.UnauthorizedException.Title, ex.Message);
+            Assert.NotNull(ex.Messages);
         }
 
         [Fact]
@@ -23,18 +22,30 @@ namespace Digipolis.Errors.UnitTests.Exceptions.UnauthorizedExceptionTests
         {
             var ex = new UnauthorizedException("access denied");
             Assert.Equal("access denied", ex.Message);
-            Assert.NotNull(ex.Error);
-            Assert.Equal(1, ex.Error.Messages.Count());
-            Assert.Equal("access denied", ex.Error.Messages.First().Message);
+            Assert.NotNull(ex.Messages);
         }
 
         [Fact]
-        private void ErrorIsSet()
+        private void MessageAndInnerExceptionAreSetInProperties()
         {
-            var error = new Error("id");
-            var ex = new UnauthorizedException(error);
-            Assert.Equal(Defaults.UnauthorizedException.Message, ex.Message);
-            Assert.Same(error, ex.Error);
+            var innerEx = new Exception("innerMessage");
+            var ex = new UnauthorizedException("access denied", innerEx);
+            Assert.Equal("access denied", ex.Message);
+            Assert.Same(innerEx, ex.InnerException);
+        }
+
+        [Fact]
+        private void MessageAndInnerExceptionAndExtraParametersAreSetInProperties()
+        {
+            var messages = new Dictionary<string, IEnumerable<string>>();
+            var message = new[] { "message1", "message2" };
+            messages.Add("key1", message);
+            var innerEx = new Exception("innerMessage");
+
+            var ex = new UnauthorizedException("access denied", innerEx, messages);
+            Assert.Equal("access denied", ex.Message);
+            Assert.Same(innerEx, ex.InnerException);
+            Assert.Same(messages, ex.Messages);
         }
     }
 }

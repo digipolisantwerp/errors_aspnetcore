@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Digipolis.Errors.Exceptions;
 using Digipolis.Errors.Internal;
@@ -9,52 +10,33 @@ namespace Digipolis.Errors.UnitTests.Exceptions.BaseExceptionTests
     public class InstantiationTests
     {
         [Fact]
-        private void MessageIsSetInPropertyAndErrorObject()
+        private void MessageIsSetInProperty()
         {
-            var ex = new BaseException("aMessage");
+            var ex = new ExceptionTester(message: "aMessage");
             Assert.Equal("aMessage", ex.Message);
-            Assert.NotNull(ex.Error);
-            Assert.Equal(1, ex.Error.Messages.Count());
-            Assert.Equal("aMessage", ex.Error.Messages.First().Message);
         }
 
         [Fact]
-        private void MessageAndInnerExceptionAreSetInPropertiesAndErrorObject()
+        private void MessageAndInnerExceptionAreSetInProperties()
         {
             var innerEx = new Exception("innerMessage");
-            var ex = new BaseException("aMessage", innerEx);
+            var ex = new ExceptionTester(message: "aMessage", exception: innerEx);
             Assert.Equal("aMessage", ex.Message);
             Assert.Same(innerEx, ex.InnerException);
-            Assert.NotNull(ex.Error);
-            Assert.Equal(1, ex.Error.Messages.Count());
-            Assert.Equal("aMessage", ex.Error.Messages.First().Message);
         }
 
         [Fact]
-        private void ErrorIsSet()
+        private void MessageAndInnerExceptionAndExtraParametersAreSetInProperties()
         {
-            var error = new Error("id");
-            var ex = new BaseException(error);
-            Assert.Same(error, ex.Error);
-        }
+            var messages = new Dictionary<string, IEnumerable<string>>();
+            var message = new[] { "message1", "message2"};
+            messages.Add("key1", message);
+            var innerEx = new Exception("innerMessage");
 
-        [Fact]
-        private void ErrorAndMessageAreSet()
-        {
-            var error = new Error("id");
-            var ex = new BaseException(error, message: "aMessage");
-            Assert.Same(error, ex.Error);
+            var ex = new ExceptionTester("aMessage", innerEx, messages);
             Assert.Equal("aMessage", ex.Message);
-        }
-
-        [Fact]
-        private void ErrorAndInnerExceptionAreSet()
-        {
-            var innerEx = new Exception("inner");
-            var error = new Error("id");
-            var ex = new BaseException(error, innerException: innerEx);
-            Assert.Same(error, ex.Error);
             Assert.Same(innerEx, ex.InnerException);
+            Assert.Same(messages, ex.Messages);
         }
     }
 }
