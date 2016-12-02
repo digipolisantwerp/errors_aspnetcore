@@ -7,8 +7,8 @@ namespace Digipolis.Errors.UnitTests.Exceptions.BaseExceptionTests
 {
     internal class ExceptionTester : BaseException
     {
-        public ExceptionTester(string message = Defaults.ValidationException.Title, Exception exception = null, Dictionary<string, IEnumerable<string>> messages = null)
-            : base(message, exception, messages)
+        public ExceptionTester(string message = Defaults.ValidationException.Title, string code = Defaults.ValidationException.Code, Exception exception = null, Dictionary<string, IEnumerable<string>> messages = null)
+            : base(message,code, exception, messages)
         { }
     }
 }

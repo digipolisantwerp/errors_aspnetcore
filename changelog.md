@@ -20,3 +20,6 @@
   - All methods related to adding messages from Error have been relocated here 
 - ExceptionMapper has been introduced
   - This will map exceptions to errors instead of letting the exceptions containing an Error model
+
+## 4.0.0
+- Added support for custom errorcodes.

@@ -17,6 +17,16 @@ namespace Digipolis.Errors.UnitTests.Exceptions.BaseExceptionTests
         }
 
         [Fact]
+        private void CodeIsSet()
+        {
+            string code = "EXTST";
+
+            var ex = new ExceptionTester(code:code);
+
+            Assert.Same(code, ex.Code);
+        }
+
+        [Fact]
         private void MessageAndInnerExceptionAreSetInProperties()
         {
             var innerEx = new Exception("innerMessage");
@@ -33,7 +43,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.BaseExceptionTests
             messages.Add("key1", message);
             var innerEx = new Exception("innerMessage");
 
-            var ex = new ExceptionTester("aMessage", innerEx, messages);
+            var ex = new ExceptionTester("aMessage", "EXTST", innerEx, messages);
             Assert.Equal("aMessage", ex.Message);
             Assert.Same(innerEx, ex.InnerException);
             Assert.Same(messages, ex.Messages);

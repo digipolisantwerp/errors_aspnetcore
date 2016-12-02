@@ -26,10 +26,20 @@ namespace Digipolis.Errors.UnitTests.Exceptions.UnauthorizedExceptionTests
         }
 
         [Fact]
+        private void CodeIsSet()
+        {
+            string code = "NOACC1";
+
+            var ex = new UnauthorizedException("access denied", code);
+
+            Assert.Equal(code, ex.Code);
+        }
+
+        [Fact]
         private void MessageAndInnerExceptionAreSetInProperties()
         {
             var innerEx = new Exception("innerMessage");
-            var ex = new UnauthorizedException("access denied", innerEx);
+            var ex = new UnauthorizedException("access denied", "NOACC1", innerEx);
             Assert.Equal("access denied", ex.Message);
             Assert.Same(innerEx, ex.InnerException);
         }
@@ -42,7 +52,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.UnauthorizedExceptionTests
             messages.Add("key1", message);
             var innerEx = new Exception("innerMessage");
 
-            var ex = new UnauthorizedException("access denied", innerEx, messages);
+            var ex = new UnauthorizedException("access denied", "NOACC1", innerEx, messages);
             Assert.Equal("access denied", ex.Message);
             Assert.Same(innerEx, ex.InnerException);
             Assert.Same(messages, ex.Messages);

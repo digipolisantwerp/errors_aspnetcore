@@ -8,13 +8,15 @@ namespace Digipolis.Errors.Exceptions
     public abstract class BaseException : Exception
     {
         public Dictionary<string, IEnumerable<string>> Messages { get; protected set; }
+        public string Code { get; set; }
 
         #region C'tors
 
-        protected BaseException(string message = null, Exception exception = null, Dictionary<string, IEnumerable<string>> messages = null)
+        protected BaseException(string message = null, string code =null,  Exception exception = null, Dictionary<string, IEnumerable<string>> messages = null)
             : base(message, exception)
         {
             Messages = messages ?? new Dictionary<string, IEnumerable<string>>();
+            Code = code;
         }
 
         #endregion

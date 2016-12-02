@@ -26,10 +26,20 @@ namespace Digipolis.Errors.UnitTests.Exceptions.ValidationExceptionTests
         }
 
         [Fact]
+        private void CodeIsSet()
+        {
+            string code = "INVAL01";
+
+            var ex = new ValidationException("validation failed", code);
+
+            Assert.Same(code, ex.Code);
+        }
+
+        [Fact]
         private void MessageAndInnerExceptionAreSetInProperties()
         {
             var innerEx = new Exception("innerMessage");
-            var ex = new ValidationException("validation failed", innerEx);
+            var ex = new ValidationException("validation failed", "INVAL01", innerEx);
             Assert.Equal("validation failed", ex.Message);
             Assert.Same(innerEx, ex.InnerException);
         }
@@ -42,7 +52,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.ValidationExceptionTests
             messages.Add("key1", message);
             var innerEx = new Exception("innerMessage");
 
-            var ex = new ValidationException("validation failed", innerEx, messages);
+            var ex = new ValidationException("validation failed", "INVAL01", innerEx, messages);
             Assert.Equal("validation failed", ex.Message);
             Assert.Same(innerEx, ex.InnerException);
             Assert.Same(messages, ex.Messages);
