@@ -6,8 +6,8 @@ namespace Digipolis.Errors.Exceptions
 {
     public class ValidationException : BaseException
     {
-        public ValidationException(string message = Defaults.ValidationException.Title, Exception exception = null, Dictionary<string, IEnumerable<string>> messages = null)
-            : base(message, exception, messages)
+        public ValidationException(string message = Defaults.ValidationException.Title, string code = Defaults.ValidationException.Code, Exception exception = null, Dictionary<string, IEnumerable<string>> messages = null)
+            : base(message, code,exception, messages)
         { }
     }
 }

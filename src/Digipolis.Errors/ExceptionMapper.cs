@@ -30,7 +30,7 @@ namespace Digipolis.Errors
         protected virtual void CreateNotFoundMap(Error error, NotFoundException exception)
         {
             error.Title = Defaults.NotFoundException.Title;
-            error.Code = Defaults.NotFoundException.Code;
+            error.Code = exception.Code;
             error.Status = 404;
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
         }
@@ -38,7 +38,7 @@ namespace Digipolis.Errors
         protected virtual void CreateUnauthorizedMap(Error error, UnauthorizedException exception)
         {
             error.Title = Defaults.UnauthorizedException.Title;
-            error.Code = Defaults.UnauthorizedException.Code;
+            error.Code = exception.Code;
             error.Status = 403;
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
         }
@@ -46,7 +46,7 @@ namespace Digipolis.Errors
         protected virtual void CreateValidationMap(Error error, ValidationException exception)
         {
             error.Title = Defaults.ValidationException.Title;
-            error.Code = Defaults.ValidationException.Code;
+            error.Code = exception.Code;
             error.Status = 400;
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
         }

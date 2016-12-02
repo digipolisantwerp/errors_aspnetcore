@@ -32,6 +32,20 @@ namespace Digipolis.Errors.UnitTests.ExceptionMapper
         }
 
         [Fact]
+        private void RetrieveFrameworkMappedExceptionErrorShouldMapCustomExceptionCode()
+        {
+            var mapper = new ExceptionMapperTester();
+            string customCode = "CST0001";
+            var error = mapper.Resolve(new NotFoundException() { Code = customCode });
+
+            Assert.NotNull(error);
+            Assert.Equal(Defaults.NotFoundException.Title, error.Title);
+            Assert.Equal(customCode, error.Code);
+            Assert.Equal(404, error.Status);
+        }
+
+
+        [Fact]
         private void RetrieveMappedExceptionError()
         {
             var mapper = new ExceptionMapperTester();

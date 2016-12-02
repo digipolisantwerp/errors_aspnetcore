@@ -26,10 +26,20 @@ namespace Digipolis.Errors.UnitTests.Exceptions.NotFoundExceptionTests
         }
 
         [Fact]
+        private void CodeIsSet()
+        {
+            string code = "NOTFND";
+
+            var ex = new NotFoundException("not found", code);
+
+            Assert.Same(code, ex.Code);
+        }
+
+        [Fact]
         private void MessageAndInnerExceptionAreSetInProperties()
         {
             var innerEx = new Exception("innerMessage");
-            var ex = new NotFoundException("not found", innerEx);
+            var ex = new NotFoundException("not found", "NOTFND", innerEx);
             Assert.Equal("not found", ex.Message);
             Assert.Same(innerEx, ex.InnerException);
         }
@@ -42,7 +52,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.NotFoundExceptionTests
             messages.Add("key1", message);
             var innerEx = new Exception("innerMessage");
 
-            var ex = new NotFoundException("not found", innerEx, messages);
+            var ex = new NotFoundException("not found", "NOTFND",innerEx, messages);
             Assert.Equal("not found", ex.Message);
             Assert.Same(innerEx, ex.InnerException);
             Assert.Same(messages, ex.Messages);

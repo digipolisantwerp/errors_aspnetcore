@@ -29,14 +29,6 @@ namespace Digipolis.Errors.UnitTests.ExceptionMapper
             error.Code = "TECHE001";
         }
 
-        protected override void CreateNotFoundMap(Error error, NotFoundException exception)
-        {
-            error.Title = Defaults.NotFoundException.Title;
-            error.Code = Defaults.NotFoundException.Code;
-            error.Status = 404;
-            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
-        }
-
         protected override void CreateUnauthorizedMap(Error error, UnauthorizedException exception)
         {
         }
