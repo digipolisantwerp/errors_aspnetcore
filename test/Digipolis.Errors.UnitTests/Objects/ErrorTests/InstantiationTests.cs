@@ -48,9 +48,9 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
         [Fact]
         private void ErrorMessagesIsSet()
         {
-            var errorMessage1 = new KeyValuePair<string, object>("key1", "message1");
-            var errorMessage2 = new KeyValuePair<string, object>("key2", "message2");
-            var errorMessages = new Dictionary<string, object>();
+            var errorMessage1 = new KeyValuePair<string, IEnumerable<string>>("key1", new string[] { "message1" });
+            var errorMessage2 = new KeyValuePair<string, IEnumerable<string>>("key2", new string[] { "message2" });
+            var errorMessages = new Dictionary<string, IEnumerable<string>>();
             errorMessages.AddRange(new []{ errorMessage1, errorMessage2 });
 
             var error = new Error(errorMessages);
@@ -71,8 +71,8 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
         [Fact]
         private void ErrorMessageIsSet()
         {
-            var errorMessage1 = new KeyValuePair<string, object>("key1", "message1");
-            var errorMessages = new Dictionary<string, object>();
+            var errorMessage1 = new KeyValuePair<string, IEnumerable<string>>("key1", new string[] { "message1" });
+            var errorMessages = new Dictionary<string, IEnumerable<string>>();
             errorMessages.AddRange(new[] { errorMessage1 });
 
 

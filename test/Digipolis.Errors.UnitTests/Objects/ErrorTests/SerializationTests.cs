@@ -19,7 +19,7 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
                 Status = 400,
                 Title = "Title",
                 Type = new Uri("http://moreinfo.com"),
-                ExtraParameters = new Dictionary<string, object> { { "key1", "value1" }, { "key2", "value2" } }
+                ExtraParameters = new Dictionary<string, IEnumerable<string>> { { "key1", new string[] { "value1" } }, { "key2", new string[] { "value2" } } }
             };
 
             //Arrange
@@ -33,7 +33,7 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
         public void CanBeDeserialized()
         {
             //Act
-            var serialized = "{ \"Identifier\":\"a61c0191-b64b-477e-9617-137e5dcd6b52\",\"Type\":\"http://moreinfo.com\",\"Title\":\"Title\",\"Status\":400,\"Code\":\"001\",\"ExtraParameters\":{\"key1\":\"value1\",\"key2\":\"value2\"}}";
+            var serialized = "{\"Identifier\":\"a931740d-733d-4549-a0a3-65e48eda9d9b\",\"Type\":\"http://moreinfo.com\",\"Title\":\"Title\",\"Status\":400,\"Code\":\"001\",\"ExtraParameters\":{\"key1\":[\"value1\"],\"key2\":[\"value2\"]}}";
 
             //Arrange
             var error = JsonConvert.DeserializeObject<Error>(serialized);
@@ -42,9 +42,9 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
             Assert.Equal("001", error.Code);
             Assert.Equal(400, error.Status);
             Assert.Equal("Title", error.Title);
-            Assert.Equal("a61c0191-b64b-477e-9617-137e5dcd6b52", error.Identifier.ToString());
-            Assert.Contains(error.ExtraParameters, kvp => kvp.Key == "key1" && kvp.Value.ToString() == "value1");
-            Assert.Contains(error.ExtraParameters, kvp => kvp.Key == "key2" && kvp.Value.ToString() == "value2");
+            Assert.Equal("a931740d-733d-4549-a0a3-65e48eda9d9b", error.Identifier.ToString());
+            Assert.Contains(error.ExtraParameters, kvp => kvp.Key == "key1" && kvp.Value.Contains("value1"));
+            Assert.Contains(error.ExtraParameters, kvp => kvp.Key == "key2" && kvp.Value.Contains("value2"));
         }
     }
 }
