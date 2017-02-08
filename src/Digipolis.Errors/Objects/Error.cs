@@ -16,7 +16,7 @@ namespace Digipolis.Errors
         /// <summary>
         /// A unique id to identify error messages in the logs
         /// </summary>
-        public Guid Identifier { get; private set; }
+        public Guid Identifier { get; set; }
 
         /// <summary>
         /// A URI to an absolute or relative html resource to identify the problem.
@@ -42,6 +42,12 @@ namespace Digipolis.Errors
         /// Extra parameters to clarify the error
         /// </summary>
         public Dictionary<string, object> ExtraParameters { get; set; }
+
+        public Error()
+            : this(Guid.NewGuid())
+        {
+
+        }
 
         public Error(Dictionary<string, object> extraParameters = null)
             : this(Guid.NewGuid(), extraParameters)
