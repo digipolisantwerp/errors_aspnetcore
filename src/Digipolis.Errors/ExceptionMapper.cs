@@ -32,7 +32,7 @@ namespace Digipolis.Errors
             error.Title = Defaults.NotFoundException.Title;
             error.Code = exception.Code;
             error.Status = 404;
-            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
+            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
         protected virtual void CreateUnauthorizedMap(Error error, UnauthorizedException exception)
@@ -40,7 +40,7 @@ namespace Digipolis.Errors
             error.Title = Defaults.UnauthorizedException.Title;
             error.Code = exception.Code;
             error.Status = 403;
-            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
+            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
         protected virtual void CreateValidationMap(Error error, ValidationException exception)
@@ -48,7 +48,7 @@ namespace Digipolis.Errors
             error.Title = Defaults.ValidationException.Title;
             error.Code = exception.Code;
             error.Status = 400;
-            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
+            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Digipolis.Errors
 
             var baseException = exception as BaseException;
             if (baseException != null)
-                error.ExtraParameters = baseException.Messages.ToDictionary(x => x.Key, x => (object)x.Value);
+                error.ExtraParameters = baseException.Messages.ToDictionary(x => x.Key, x => x.Value);
 
             return error;
         }

@@ -19,9 +19,9 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
         private void ToStringContainsMessagesCollection()
         {
             var id = Guid.NewGuid();
-            var errorMessage1 = "message1";
-            var errorMessage2 = "message2";
-            var messages = new Dictionary<string, object> { { "key1", errorMessage1 }, { "key2", errorMessage2 } };
+            var errorMessage1 = new string[] { "message1" };
+            var errorMessage2 = new string[] { "message2" };
+            var messages = new Dictionary<string, IEnumerable<string>> { { "key1", errorMessage1 }, { "key2", errorMessage2 } };
             var error = new Error(id, messages);
 
             Assert.Contains("message1", error.ToString());
@@ -32,9 +32,9 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
         private void ToStringContainsMessagesCollections()
         {
             var id = Guid.NewGuid();
-            var errorMessage1 = "message1";
-            var errorMessage2 = "message2";
-            var messages = new Dictionary<string, object> { { "key1", new[] { errorMessage1, errorMessage2 } } };
+            var errorMessage1 = new string[] { "message1" };
+            var errorMessage2 = new string[] { "message2" };
+            var messages = new Dictionary<string, IEnumerable<string>> { { "key1", errorMessage1 }, { "key2", errorMessage2 } };
             var error = new Error(id, messages);
 
             Assert.Contains("message1", error.ToString());
