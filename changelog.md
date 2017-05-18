@@ -1,5 +1,9 @@
 # Errors Toolbox
 
+## 5.0.0
+
+- conversion to csproj and MSBuild.
+
 ## 4.0.0
 - Added support for custom errorcodes.
 - Fixed Error deserialization problem 

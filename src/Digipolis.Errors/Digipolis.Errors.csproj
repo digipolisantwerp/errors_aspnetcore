@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Errors toolbox.</Description>
+    <VersionPrefix>5.0.0</VersionPrefix>
+    <Authors>digipolis.be</Authors>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <AssemblyName>Digipolis.Errors</AssemblyName>
+    <PackageId>Digipolis.Errors</PackageId>
+    <PackageTags>Web;Toolbox;Errors</PackageTags>
+    <PackageProjectUrl>https://github.com/digipolisantwerp/errors_aspnetcore</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/digipolisantwerp/errors_aspnetcore/LICENSE.txt</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/digipolisantwerp/errors_aspnetcore</RepositoryUrl>
+    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+  </PropertyGroup>
+
+</Project>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A1EF8686-59E4-428E-9BA7-1A45391235CC}"
 EndProject
@@ -10,15 +10,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56DAE3CF-93FC-4DB6-91C1-4FF7F62B5668}"
 	ProjectSection(SolutionItems) = preProject
 		changelog.md = changelog.md
-		global.json = global.json
 		LICENSE.txt = LICENSE.txt
 		NuGet.Config = NuGet.Config
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Digipolis.Errors", "src\Digipolis.Errors\Digipolis.Errors.xproj", "{6624487F-A0E8-4FB9-B218-046C2B88FB32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Digipolis.Errors", "src\Digipolis.Errors\Digipolis.Errors.csproj", "{6624487F-A0E8-4FB9-B218-046C2B88FB32}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Digipolis.Errors.UnitTests", "test\Digipolis.Errors.UnitTests\Digipolis.Errors.UnitTests.xproj", "{1944D0B2-E5C9-4B76-9E13-973BADB14045}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Digipolis.Errors.UnitTests", "test\Digipolis.Errors.UnitTests\Digipolis.Errors.UnitTests.csproj", "{1944D0B2-E5C9-4B76-9E13-973BADB14045}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

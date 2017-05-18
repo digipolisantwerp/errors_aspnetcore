@@ -27,11 +27,19 @@ This toolbox contains objects and exceptions for error handling.
 
 # Installation
 
-Adding the DataAccess Toolbox to a project is as easy as adding it to the project.json file :
+Adding the DataAccess Toolbox to a project is as easy as adding it to the csproj project file:
+
+```xml
+  <ItemGroup>
+    <PackageReference Include="Digipolis.Errors" Version="5.0.0" />
+  </ItemGroup>
+``` 
+
+or if your project still works with project.json :
 
 ``` json
  "dependencies": {
-    "Digipolis.Errors":  "4.0.0", 
+    "Digipolis.Errors":  "5.0.0", 
  }
 ```
 
