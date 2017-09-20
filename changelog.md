@@ -1,5 +1,10 @@
 # Errors Toolbox
 
+## 5.1.0
+
+- ForbiddenException added.
+- Bug: UnauthorizedException maps now to HTTP status code 401 instead of 403
+
 ## 5.0.0
 
 - conversion to csproj and MSBuild.

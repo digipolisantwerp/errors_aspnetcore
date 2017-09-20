@@ -21,6 +21,7 @@ This toolbox contains objects and exceptions for error handling.
 	  - [AddMessages](#addmessages)
   - [NotFoundException](#notfoundexception)
   - [UnauthorizedException](#unauthorizedexception)
+  - [ForbiddenException](#forbiddenexception)
   - [ValidationException](#validationexception)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -108,6 +109,14 @@ protected override void CreateUnauthorizedMap(Error error, UnauthorizedException
 {
     error.Title = "Access restricted";
     error.Code = "NAUTH001";
+    error.Status = (int)HttpStatusCode.Unauthorized;
+    error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
+}
+
+protected override void CreateForbiddenMap(Error error, ForbiddenException exception)
+{
+    error.Title = "Forbidden";
+    error.Code = "FORBID001";
     error.Status = (int)HttpStatusCode.Forbidden;
     error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
 }
@@ -270,7 +279,18 @@ Inherits from [BaseException](#baseexception) and has all the functionality of t
 Used when the user does not have sufficient rights.
 ``` csharp
 //constructor
-public NotFoundException(string message = "Access denied.", Exception exception = null, Dictionary < string, IEnumerable<string>> messages = null )
+public UnauthorizedException(string message = "Access denied.", Exception exception = null, Dictionary < string, IEnumerable<string>> messages = null )
+    : base(message, exception, messages)
+{}
+```
+Inherits from [BaseException](#baseexception) and has all the functionality of the base.
+
+## ForbiddenException
+
+Used when the user is forbidden to access the requested resource.
+``` csharp
+//constructor
+public ForbiddenException(string message = "Forbidden.", Exception exception = null, Dictionary < string, IEnumerable<string>> messages = null )
     : base(message, exception, messages)
 {}
 ```

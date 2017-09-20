@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Digipolis.Errors.Internal
+﻿namespace Digipolis.Errors.Internal
 {
     internal class Defaults
     {
@@ -24,6 +22,12 @@ namespace Digipolis.Errors.Internal
         {
             internal const string Title = "Access denied.";
             internal const string Code = "UNAUTH001";
+        }
+
+        internal class ForbiddenException
+        {
+            internal const string Title = "Forbidden.";
+            internal const string Code = "FORBID001";
         }
 
         internal class ValidationException

@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Digipolis.Errors.Exceptions;
+using Digipolis.Errors.Internal;
+using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
-using Digipolis.Errors.Exceptions;
-using Digipolis.Errors.Internal;
 
 namespace Digipolis.Errors
 {
@@ -19,6 +17,7 @@ namespace Digipolis.Errors
             CreateMap<Exception>(CreateDefaultMap);
             CreateMap<NotFoundException>(CreateNotFoundMap);
             CreateMap<UnauthorizedException>(CreateUnauthorizedMap);
+            CreateMap<ForbiddenException>(CreateForbiddenMap);
             CreateMap<ValidationException>(CreateValidationMap);
             Configure();
         }
@@ -31,7 +30,7 @@ namespace Digipolis.Errors
         {
             error.Title = Defaults.NotFoundException.Title;
             error.Code = exception.Code;
-            error.Status = 404;
+            error.Status = (int)HttpStatusCode.NotFound;
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
@@ -39,7 +38,15 @@ namespace Digipolis.Errors
         {
             error.Title = Defaults.UnauthorizedException.Title;
             error.Code = exception.Code;
-            error.Status = 403;
+            error.Status = (int)HttpStatusCode.Unauthorized;
+            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+        }
+
+        protected virtual void CreateForbiddenMap(Error error, ForbiddenException exception)
+        {
+            error.Title = Defaults.ForbiddenException.Title;
+            error.Code = exception.Code;
+            error.Status = (int)HttpStatusCode.Forbidden;
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
@@ -47,7 +54,7 @@ namespace Digipolis.Errors
         {
             error.Title = Defaults.ValidationException.Title;
             error.Code = exception.Code;
-            error.Status = 400;
+            error.Status = (int)HttpStatusCode.BadRequest;
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
