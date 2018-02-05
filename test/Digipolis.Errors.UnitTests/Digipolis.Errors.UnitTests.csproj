@@ -3,13 +3,13 @@
   <PropertyGroup>
     <Description>Unit tests for the Errors toolbox</Description>
     <Authors>digipolis.be</Authors>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>Digipolis.Errors.UnitTests</AssemblyName>
     <PackageId>Digipolis.Errors.UnitTests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
-    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
-    <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
+    <NetStandardImplicitPackageVersion>2.0.0</NetStandardImplicitPackageVersion>
+    <AssetTargetFallback>$(AssetTargetFallback);dnxcore50</AssetTargetFallback>
+    <RuntimeFrameworkVersion>2.0.0</RuntimeFrameworkVersion>
   </PropertyGroup>
 
   <ItemGroup>

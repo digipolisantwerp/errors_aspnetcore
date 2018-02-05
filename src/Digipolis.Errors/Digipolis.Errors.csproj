@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <Description>Errors toolbox.</Description>
-    <VersionPrefix>5.1.0</VersionPrefix>
+    <VersionPrefix>6.0.0</VersionPrefix>
     <Authors>digipolis.be</Authors>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>Digipolis.Errors</AssemblyName>
     <PackageId>Digipolis.Errors</PackageId>
     <PackageTags>Web;Toolbox;Errors</PackageTags>
@@ -12,8 +12,8 @@
     <PackageLicenseUrl>https://github.com/digipolisantwerp/errors_aspnetcore/LICENSE.txt</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/digipolisantwerp/errors_aspnetcore</RepositoryUrl>
-    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <NetStandardImplicitPackageVersion>2.0.0</NetStandardImplicitPackageVersion>
+    <AssetTargetFallback>$(AssetTargetFallback);dnxcore50</AssetTargetFallback>
   </PropertyGroup>
 
 </Project>

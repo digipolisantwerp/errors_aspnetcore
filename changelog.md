@@ -1,5 +1,8 @@
 # Errors Toolbox
 
+## 6.0.0
+ - Update dependencies for .Net Core 2.0
+
 ## 5.1.0
 
 - ForbiddenException added.
