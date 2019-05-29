@@ -35,5 +35,16 @@
             internal const string Title = "Bad request.";
             internal const string Code = "UNVALI001";
         }
+
+        internal class BadGatewayException
+        {
+            internal const string Title = "Bad Gateway.";
+            internal const string Code = "GTWAY001";
+        }
+        internal class GatewayTimeoutException
+        {
+            internal const string Title = "Gateway Timeout.";
+            internal const string Code = "GTWAY002";
+        }
     }
 }
