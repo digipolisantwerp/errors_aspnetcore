@@ -23,6 +23,9 @@ This toolbox contains objects and exceptions for error handling.
   - [UnauthorizedException](#unauthorizedexception)
   - [ForbiddenException](#forbiddenexception)
   - [ValidationException](#validationexception)
+  - [BadGatewayException](#badgatewayexception)
+  - [GatewayTimeoutException](#gatewaytimeoutexception)
+
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -32,7 +35,7 @@ Adding the DataAccess Toolbox to a project is as easy as adding it to the csproj
 
 ```xml
   <ItemGroup>
-    <PackageReference Include="Digipolis.Errors" Version="5.0.0" />
+    <PackageReference Include="Digipolis.Errors" Version="5.2.0" />
   </ItemGroup>
 ``` 
 
@@ -40,7 +43,7 @@ or if your project still works with project.json :
 
 ``` json
  "dependencies": {
-    "Digipolis.Errors":  "5.0.0", 
+    "Digipolis.Errors":  "5.2.0", 
  }
 ```
 
@@ -100,15 +103,15 @@ and [ValidationException](#validationexception) also contained in this toolbox. 
 protected override void CreateNotFoundMap(Error error, NotFoundException exception)
 {
     error.Title = "not Found";
-    error.Code = "NOTF001";
+    error.Code = "NFOUND001";
     error.Status = (int)HttpStatusCode.NotFound;
     error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
 }
 
 protected override void CreateUnauthorizedMap(Error error, UnauthorizedException exception)
 {
-    error.Title = "Access restricted";
-    error.Code = "NAUTH001";
+    error.Title = "Access denied.";
+    error.Code = "UNAUTH001";
     error.Status = (int)HttpStatusCode.Unauthorized;
     error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
 }
@@ -123,10 +126,26 @@ protected override void CreateForbiddenMap(Error error, ForbiddenException excep
 
 protected override void CreateValidationMap(Error error, ValidationException exception)
 {
-    error.Title = "Invalid model in the request";
-    error.Code = "NVAL001";
+    error.Title = "Bad request.";
+    error.Code = "UNVALI001";
     error.Status = (int)HttpStatusCode.BadRequest;
     error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
+}
+
+protected virtual void CreateBadGateWayMap(Error error, BadGatewayException exception)
+{
+    error.Title =  "Bad Gateway."
+    error.Code =  "GTWAY001";
+    error.Status = (int)HttpStatusCode.BadGateway;
+    error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+}
+
+protected virtual void CreateGatewayTimeoutMap(Error error, GatewayTimeoutException exception)
+{
+    error.Title =  "Gateway Timeout.";
+    error.Code =  "GTWAY002";
+    error.Status = (int)HttpStatusCode.GatewayTimeout;
+    error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
 }
 ``` 
 
@@ -268,7 +287,7 @@ error.AddMessages("aKey", messages);
 To be used when a requested resource is not found or does not exist.
 ``` csharp
 //constructor
-public NotFoundException(string message = "Not found.", Exception exception = null, Dictionary < string, IEnumerable<string>> messages = null )
+public NotFoundException(string message = "Not found.", string code = "NFOUND001", Exception exception = null, Dictionary < string, IEnumerable<string>> messages = null )
     : base(message, exception, messages)
 {}
 ```
@@ -279,7 +298,7 @@ Inherits from [BaseException](#baseexception) and has all the functionality of t
 Used when the user does not have sufficient rights.
 ``` csharp
 //constructor
-public UnauthorizedException(string message = "Access denied.", Exception exception = null, Dictionary < string, IEnumerable<string>> messages = null )
+public UnauthorizedException(string message = "Access denied.", string code = "UNAUTH001", Exception exception = null, Dictionary < string, IEnumerable<string>> messages = null )
     : base(message, exception, messages)
 {}
 ```
@@ -290,7 +309,7 @@ Inherits from [BaseException](#baseexception) and has all the functionality of t
 Used when the user is forbidden to access the requested resource.
 ``` csharp
 //constructor
-public ForbiddenException(string message = "Forbidden.", Exception exception = null, Dictionary < string, IEnumerable<string>> messages = null )
+public ForbiddenException(string message = "Forbidden.", string code = "FORBID001", Exception exception = null, Dictionary < string, IEnumerable<string>> messages = null )
     : base(message, exception, messages)
 {}
 ```
@@ -301,7 +320,29 @@ Inherits from [BaseException](#baseexception) and has all the functionality of t
 Can be used when input validation fails. 
 ``` csharp
 //constructor
-public NotFoundException(string message = "Access denied.", Exception exception = null, Dictionary < string, IEnumerable<string>> messages = null )
+public ValidationException(string message = "Bad request.", string code = "UNVALI001", Exception exception = null, Dictionary < string, IEnumerable<string>> messages = null )
+    : base(message, exception, messages)
+{}
+```
+Inherits from [BaseException](#baseexception) and has all the functionality of the base.
+
+## BadGatewayException
+
+Can be used when a server can't be reached. 
+``` csharp
+//constructor
+public BadGatewayException(string message = "Bad Gateway.", string code = "GTWAY001", Exception exception = null, Dictionary < string, IEnumerable<string>> messages = null )
+    : base(message, exception, messages)
+{}
+```
+Inherits from [BaseException](#baseexception) and has all the functionality of the base.
+
+## GatewayTimeoutException
+
+Can be used when a server can't be reached. 
+``` csharp
+//constructor
+public GatewayTimeoutException(string message = "Gateway timeout.", string code = "GTWAY002", Exception exception = null, Dictionary < string, IEnumerable<string>> messages = null )
     : base(message, exception, messages)
 {}
 ```

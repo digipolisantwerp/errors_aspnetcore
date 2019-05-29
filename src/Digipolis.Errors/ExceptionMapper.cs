@@ -19,6 +19,8 @@ namespace Digipolis.Errors
             CreateMap<UnauthorizedException>(CreateUnauthorizedMap);
             CreateMap<ForbiddenException>(CreateForbiddenMap);
             CreateMap<ValidationException>(CreateValidationMap);
+            CreateMap<BadGatewayException>(CreateBadGateWayMap);
+            CreateMap<GatewayTimeoutException>(CreateGatewayTimeoutMap);
             Configure();
         }
 
@@ -55,6 +57,22 @@ namespace Digipolis.Errors
             error.Title = Defaults.ValidationException.Title;
             error.Code = exception.Code;
             error.Status = (int)HttpStatusCode.BadRequest;
+            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+        }
+
+        protected virtual void CreateBadGateWayMap(Error error, BadGatewayException exception)
+        {
+            error.Title = Defaults.BadGatewayException.Title;
+            error.Code = exception.Code;
+            error.Status = (int)HttpStatusCode.BadGateway;
+            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+        }
+
+        protected virtual void CreateGatewayTimeoutMap(Error error, GatewayTimeoutException exception)
+        {
+            error.Title = Defaults.GatewayTimeoutException.Title;
+            error.Code = exception.Code;
+            error.Status = (int)HttpStatusCode.GatewayTimeout;
             error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
