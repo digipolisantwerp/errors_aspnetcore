@@ -96,8 +96,9 @@ protected override void Configure()
 ``` 
 
 ### Default mappings
-There are already default mappings provided for [NotFoundException](#notfoundexception), [UnauthorizedException](#unauthorizedexception)
-and [ValidationException](#validationexception) also contained in this toolbox. These default mapping can be overriden.
+There are already default mappings provided for [NotFoundException](#notfoundexception), [UnauthorizedException](#unauthorizedexception), [ForbiddenException](#forbiddenexception)
+[ValidationException](#validationexception), [BadGatewayException](#badgatewayexception) and [GetwayTimeoutException](#gatewaytimeoutexception) 
+also contained in this toolbox. These default mapping can be overriden.
 
 ``` csharp
 protected override void CreateNotFoundMap(Error error, NotFoundException exception)
