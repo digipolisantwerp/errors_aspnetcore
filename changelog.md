@@ -1,5 +1,12 @@
 # Errors Toolbox
 
+## 5.2.0
+
+- BadGatewayException added
+- GatewayTimeoutException added
+- Unit tests updated
+- Readme updated
+
 ## 5.1.0
 
 - ForbiddenException added.
