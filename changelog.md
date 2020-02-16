@@ -1,5 +1,9 @@
 # Errors Toolbox
 
+## 6.0.0
+
+- Upgrade to .Net Standard 2.1 for LTS
+
 ## 5.2.0
 
 - BadGatewayException added
