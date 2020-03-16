@@ -12,7 +12,6 @@
     <PackageLicenseUrl>https://github.com/digipolisantwerp/errors_aspnetcore/LICENSE.txt</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/digipolisantwerp/errors_aspnetcore</RepositoryUrl>
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
     <Version>7.0.0</Version>
   </PropertyGroup>
 
