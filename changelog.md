@@ -1,5 +1,9 @@
 # Errors Toolbox
 
+## 6.1.0
+
+- API Design guidelines: ExtraInfo should be used instead of ExtraParameters
+
 ## 6.0.0
 
 - Upgrade to .Net Standard 2.1 for LTS
