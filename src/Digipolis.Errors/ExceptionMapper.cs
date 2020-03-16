@@ -33,7 +33,7 @@ namespace Digipolis.Errors
             error.Title = Defaults.NotFoundException.Title;
             error.Code = exception.Code;
             error.Status = (int)HttpStatusCode.NotFound;
-            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+            error.ExtraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
         protected virtual void CreateUnauthorizedMap(Error error, UnauthorizedException exception)
@@ -41,7 +41,7 @@ namespace Digipolis.Errors
             error.Title = Defaults.UnauthorizedException.Title;
             error.Code = exception.Code;
             error.Status = (int)HttpStatusCode.Unauthorized;
-            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+            error.ExtraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
         protected virtual void CreateForbiddenMap(Error error, ForbiddenException exception)
@@ -49,7 +49,7 @@ namespace Digipolis.Errors
             error.Title = Defaults.ForbiddenException.Title;
             error.Code = exception.Code;
             error.Status = (int)HttpStatusCode.Forbidden;
-            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+            error.ExtraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
         protected virtual void CreateValidationMap(Error error, ValidationException exception)
@@ -57,7 +57,7 @@ namespace Digipolis.Errors
             error.Title = Defaults.ValidationException.Title;
             error.Code = exception.Code;
             error.Status = (int)HttpStatusCode.BadRequest;
-            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+            error.ExtraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
         protected virtual void CreateBadGateWayMap(Error error, BadGatewayException exception)
@@ -65,7 +65,7 @@ namespace Digipolis.Errors
             error.Title = Defaults.BadGatewayException.Title;
             error.Code = exception.Code;
             error.Status = (int)HttpStatusCode.BadGateway;
-            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+            error.ExtraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
         protected virtual void CreateGatewayTimeoutMap(Error error, GatewayTimeoutException exception)
@@ -73,7 +73,7 @@ namespace Digipolis.Errors
             error.Title = Defaults.GatewayTimeoutException.Title;
             error.Code = exception.Code;
             error.Status = (int)HttpStatusCode.GatewayTimeout;
-            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+            error.ExtraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Digipolis.Errors
 
             var baseException = exception as BaseException;
             if (baseException != null)
-                error.ExtraParameters = baseException.Messages.ToDictionary(x => x.Key, x => x.Value);
+                error.ExtraInfo = baseException.Messages.ToDictionary(x => x.Key, x => x.Value);
 
             return error;
         }

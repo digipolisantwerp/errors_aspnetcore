@@ -38,7 +38,7 @@ namespace Digipolis.Errors.UnitTests.ExceptionMapper
             error.Title = Defaults.ValidationException.Title;
             error.Code = Defaults.ValidationException.Code;
             error.Status = 400;
-            error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+            error.ExtraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
     }
 }
