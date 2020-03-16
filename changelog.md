@@ -1,6 +1,6 @@
 # Errors Toolbox
 
-## 6.1.0
+## 7.0.0
 
 - API Design guidelines: ExtraInfo should be used instead of ExtraParameters
 
