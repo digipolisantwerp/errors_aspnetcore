@@ -35,7 +35,7 @@ Adding the DataAccess Toolbox to a project is as easy as adding it to the csproj
 
 ```xml
   <ItemGroup>
-    <PackageReference Include="Digipolis.Errors" Version="5.2.0" />
+    <PackageReference Include="Digipolis.Errors" Version="5.3.0-maintenance" />
   </ItemGroup>
 ``` 
 
@@ -43,7 +43,7 @@ or if your project still works with project.json :
 
 ``` json
  "dependencies": {
-    "Digipolis.Errors":  "5.2.0", 
+    "Digipolis.Errors":  "5.3.0-maintenance", 
  }
 ```
 
@@ -106,7 +106,7 @@ protected override void CreateNotFoundMap(Error error, NotFoundException excepti
     error.Title = "not Found";
     error.Code = "NFOUND001";
     error.Status = (int)HttpStatusCode.NotFound;
-    error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
+    error.extraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
 }
 
 protected override void CreateUnauthorizedMap(Error error, UnauthorizedException exception)
@@ -114,7 +114,7 @@ protected override void CreateUnauthorizedMap(Error error, UnauthorizedException
     error.Title = "Access denied.";
     error.Code = "UNAUTH001";
     error.Status = (int)HttpStatusCode.Unauthorized;
-    error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
+    error.extraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
 }
 
 protected override void CreateForbiddenMap(Error error, ForbiddenException exception)
@@ -122,7 +122,7 @@ protected override void CreateForbiddenMap(Error error, ForbiddenException excep
     error.Title = "Forbidden";
     error.Code = "FORBID001";
     error.Status = (int)HttpStatusCode.Forbidden;
-    error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
+    error.extraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
 }
 
 protected override void CreateValidationMap(Error error, ValidationException exception)
@@ -130,7 +130,7 @@ protected override void CreateValidationMap(Error error, ValidationException exc
     error.Title = "Bad request.";
     error.Code = "UNVALI001";
     error.Status = (int)HttpStatusCode.BadRequest;
-    error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
+    error.extraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => (object)ms.Value);
 }
 
 protected virtual void CreateBadGateWayMap(Error error, BadGatewayException exception)
@@ -138,7 +138,7 @@ protected virtual void CreateBadGateWayMap(Error error, BadGatewayException exce
     error.Title =  "Bad Gateway."
     error.Code =  "GTWAY001";
     error.Status = (int)HttpStatusCode.BadGateway;
-    error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+    error.extraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
 }
 
 protected virtual void CreateGatewayTimeoutMap(Error error, GatewayTimeoutException exception)
@@ -146,7 +146,7 @@ protected virtual void CreateGatewayTimeoutMap(Error error, GatewayTimeoutExcept
     error.Title =  "Gateway Timeout.";
     error.Code =  "GTWAY002";
     error.Status = (int)HttpStatusCode.GatewayTimeout;
-    error.ExtraParameters = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+    error.extraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
 }
 ``` 
 
@@ -201,23 +201,23 @@ public class Error
     /// <summary>
     /// Extra parameters to clarify the error
     /// </summary>
-    public Dictionary<string, object> ExtraParameters { get; set; }
+    public Dictionary<string, object> extraInfo { get; set; }
 }
 ```
 
 An _**Error**_ object can be instantiated by using one of both constructors
  ``` csharp
- public Error(Dictionary<string, object> extraParameters = null)
-    : this(Guid.NewGuid(), extraParameters)
+ public Error(Dictionary<string, object> extraInfo = null)
+    : this(Guid.NewGuid(), extraInfo)
 { }
 
-public Error(Guid identifier, Dictionary<string, object> extraParameters = null)
+public Error(Guid identifier, Dictionary<string, object> extraInfo = null)
 {
     if (identifier == default(Guid))
         throw new ArgumentException("An empty Guid is not allowed", nameof(identifier));
 
     Identifier = identifier;
-    ExtraParameters = extraParameters ?? new Dictionary<string, object>();
+    extraInfo = extraInfo ?? new Dictionary<string, object>();
 }
 ``` 
 As you can see, you can instantiate it by specifying a custom Identifier or by letting the class generate one for you.
@@ -232,13 +232,13 @@ Console.WriteLine("id = {0}", error.Id);
 The constructor also optionally accepts a dictionary of extra parameters :
 
 ``` csharp
-var extraParameters = new Dictionary<string, object>();
-extraParameters.Add("key1", "message1");
-extraParameters.Add("key2", "message2");
+var extraInfo = new Dictionary<string, object>();
+extraInfo.Add("key1", "message1");
+extraInfo.Add("key2", "message2");
 
 //constructors
-var error1 = new Error(extraParameters);
-var error2 = new Error(Guid.NewGuid(), extraParameters);
+var error1 = new Error(extraInfo);
+var error2 = new Error(Guid.NewGuid(), extraInfo);
 ``` 
 
 ## ToString
@@ -254,7 +254,7 @@ A base class for exceptions. It inherits from the standard Exception class and h
 ``` csharp
 public Dictionary<string, IEnumerable<string>> Messages { get; protected set; }
 ```
-- This Messages property will contain all additional messages you want to copy over to the ExtraParameters property 
+- This Messages property will contain all additional messages you want to copy over to the extraInfo property 
 of the [Error object](#error-object) when resolving it through the [Resolve](#resolving-exceptions) 
 function of the [ExceptionMapper](#exceptionmapper).
 

@@ -44,7 +44,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.BadGatewayExceptionTests
         }
 
         [Fact]
-        private void MessageAndInnerExceptionAndExtraParametersAreSetInProperties()
+        private void MessageAndInnerExceptionAndExtraInfoAreSetInProperties()
         {
             var messages = new Dictionary<string, IEnumerable<string>>();
             var message = new[] { "message1", "message2" };

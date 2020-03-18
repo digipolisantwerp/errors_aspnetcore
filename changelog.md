@@ -1,5 +1,9 @@
 # Errors Toolbox
 
+## 5.3.0-maintenance
+
+ - API Design guidelines: ExtraInfo should be used instead of ExtraParameters
+
 ## 5.2.0
 
 - BadGatewayException added

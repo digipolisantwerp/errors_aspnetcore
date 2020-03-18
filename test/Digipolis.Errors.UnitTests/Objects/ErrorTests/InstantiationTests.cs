@@ -35,14 +35,14 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
         private void MessagesIsInstantiated()
         {
             var error = new Error();
-            Assert.NotNull(error.ExtraParameters);
+            Assert.NotNull(error.ExtraInfo);
         }
 
         [Fact]
         private void MessagesIsInstantiatedByConstructor()
         {
-            var error = new Error(extraParameters: null);
-            Assert.NotNull(error.ExtraParameters);
+            var error = new Error(extraInfo: null);
+            Assert.NotNull(error.ExtraInfo);
         }
 
         [Fact]
@@ -55,17 +55,17 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
 
             var error = new Error(errorMessages);
 
-            Assert.Equal(2, error.ExtraParameters.Count);
-            Assert.Contains(errorMessage1, error.ExtraParameters);
-            Assert.Contains(errorMessage2, error.ExtraParameters);
+            Assert.Equal(2, error.ExtraInfo.Count);
+            Assert.Contains(errorMessage1, error.ExtraInfo);
+            Assert.Contains(errorMessage2, error.ExtraInfo);
         }
 
         [Fact]
         private void ErrorMessagesNullInstantiatesEmptyMessageCollection()
         {
-            var error = new Error(extraParameters: null);
-            Assert.NotNull(error.ExtraParameters);
-            Assert.Equal(0, error.ExtraParameters.Count);
+            var error = new Error(extraInfo: null);
+            Assert.NotNull(error.ExtraInfo);
+            Assert.Equal(0, error.ExtraInfo.Count);
         }
 
         [Fact]
@@ -78,8 +78,8 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
 
             var error = new Error(errorMessages);
 
-            Assert.Equal(1, error.ExtraParameters.Count);
-            Assert.Contains(errorMessage1, error.ExtraParameters);
+            Assert.Equal(1, error.ExtraInfo.Count);
+            Assert.Contains(errorMessage1, error.ExtraInfo);
         }
     }
 }

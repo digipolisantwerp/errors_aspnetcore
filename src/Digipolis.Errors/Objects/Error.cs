@@ -41,7 +41,7 @@ namespace Digipolis.Errors
         /// <summary>
         /// Extra parameters to clarify the error
         /// </summary>
-        public Dictionary<string, IEnumerable<string>> ExtraParameters { get; set; }
+        public Dictionary<string, IEnumerable<string>> ExtraInfo { get; set; }
 
         public Error()
             : this(Guid.NewGuid())
@@ -49,28 +49,28 @@ namespace Digipolis.Errors
 
         }
 
-        public Error(Dictionary<string, IEnumerable<string>> extraParameters = null)
-            : this(Guid.NewGuid(), extraParameters)
+        public Error(Dictionary<string, IEnumerable<string>> extraInfo = null)
+            : this(Guid.NewGuid(), extraInfo)
         { }
 
-        public Error(Guid identifier, Dictionary<string, IEnumerable<string>> extraParameters = null)
+        public Error(Guid identifier, Dictionary<string, IEnumerable<string>> extraInfo = null)
         {
             if (identifier == default(Guid))
                 throw new ArgumentException("An empty Guid is not allowed", nameof(identifier));
 
             Identifier = identifier;
-            ExtraParameters = extraParameters ?? new Dictionary<string, IEnumerable<string>>();
+            ExtraInfo = extraInfo ?? new Dictionary<string, IEnumerable<string>>();
         }
 
         public override string ToString()
         {
             var builder = new StringBuilder($"Error ( Id = {Identifier}, Messages = ");
-            if (!ExtraParameters.Any())
+            if (!ExtraInfo.Any())
                 builder.Append("'none' )");
             else
             {
                 
-                foreach (var message in ExtraParameters)
+                foreach (var message in ExtraInfo)
                 {
                     string errorMessage;
                     var type = message.Value.GetType();
