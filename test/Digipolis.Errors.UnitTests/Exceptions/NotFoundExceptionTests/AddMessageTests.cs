@@ -14,7 +14,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.NotFoundExceptionTests
             var ex = new NotFoundException();
             ex.AddMessage("aMessage");
 
-            Assert.Equal(1, ex.Messages.Count);
+            Assert.Single(ex.Messages);
             Assert.Contains("aMessage", ex.Messages.First().Value);
             Assert.Equal(Defaults.ErrorMessage.Key, ex.Messages.First().Key);
         }
@@ -25,7 +25,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.NotFoundExceptionTests
             var ex = new NotFoundException();
             ex.AddMessage("aKey", "aMessage");
 
-            Assert.Equal(1, ex.Messages.Count);
+            Assert.Single(ex.Messages);
             Assert.Equal("aKey", ex.Messages.First().Key);
             Assert.Contains("aMessage", ex.Messages.First().Value);
         }
@@ -43,7 +43,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.NotFoundExceptionTests
         {
             var ex = new NotFoundException();
             ex.AddMessage("aKey", null);
-            Assert.Equal(0, ex.Messages.Count);
+            Assert.Empty(ex.Messages);
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.NotFoundExceptionTests
             var ex = new NotFoundException();
             ex.AddMessage(null);
             ex.AddMessage(string.Empty);
-            Assert.Equal(0, ex.Messages.Count);
+            Assert.Empty(ex.Messages);
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.NotFoundExceptionTests
             var ex = new NotFoundException();
             ex.AddMessage(Defaults.ErrorMessage.Key, "aMessage");
 
-            Assert.Equal(1, ex.Messages.Count);
+            Assert.Single(ex.Messages);
             Assert.Contains("aMessage", ex.Messages.First().Value);
         }
     }

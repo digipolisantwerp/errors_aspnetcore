@@ -12,7 +12,6 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
         private void IdIsDefaulted()
         {
             var error = new Error();
-            Assert.NotNull(error.Identifier);
             Assert.NotEqual(Guid.Empty, error.Identifier);
         }
 
@@ -65,7 +64,7 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
         {
             var error = new Error(extraInfo: null);
             Assert.NotNull(error.ExtraInfo);
-            Assert.Equal(0, error.ExtraInfo.Count);
+            Assert.Empty(error.ExtraInfo);
         }
 
         [Fact]
@@ -78,7 +77,7 @@ namespace Digipolis.Errors.UnitTests.Objects.ErrorTests
 
             var error = new Error(errorMessages);
 
-            Assert.Equal(1, error.ExtraInfo.Count);
+            Assert.Single(error.ExtraInfo);
             Assert.Contains(errorMessage1, error.ExtraInfo);
         }
     }

@@ -1,5 +1,9 @@
 # Errors Toolbox
 
+## 7.0.1
+
+- Downgrade to .NET Standard 2.0 for backwards compatibility 
+
 ## 7.0.0
 
 - API Design guidelines: ExtraInfo should be used instead of ExtraParameters

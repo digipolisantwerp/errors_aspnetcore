@@ -20,7 +20,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.ValidationExceptionTests
 
             var message = error.Messages.First();
 
-            Assert.Equal(1, error.Messages.Count);
+            Assert.Single(error.Messages);
 
             Assert.Contains(message1, message.Value);
             Assert.Contains(message2, message.Value);
@@ -39,7 +39,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.ValidationExceptionTests
             ex.AddMessages(messages1);
             ex.AddMessages(messages2);
 
-            Assert.Equal(1, ex.Messages.Count);
+            Assert.Single(ex.Messages);
 
             var values = ex.Messages.SelectMany(m => m.Value);
             var keys = ex.Messages.Select(m => m.Key);
@@ -74,7 +74,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.ValidationExceptionTests
         {
             var ex = new ValidationException();
             ex.AddMessages("Key1", null);
-            Assert.Equal(0, ex.Messages.Count);
+            Assert.Empty(ex.Messages);
         }
 
         [Fact]
@@ -82,7 +82,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.ValidationExceptionTests
         {
             var ex = new ValidationException();
             ex.AddMessages("Key1", new string[0]);
-            Assert.Equal(0, ex.Messages.Count);
+            Assert.Empty(ex.Messages);
         }
 
         [Fact]
@@ -90,7 +90,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.ValidationExceptionTests
         {
             var ex = new ValidationException();
             ex.AddMessages(null);
-            Assert.Equal(0, ex.Messages.Count);
+            Assert.Empty(ex.Messages);
         }
 
         [Fact]
@@ -98,7 +98,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.ValidationExceptionTests
         {
             var ex = new ValidationException();
             ex.AddMessages(new string[0]);
-            Assert.Equal(0, ex.Messages.Count);
+            Assert.Empty(ex.Messages);
         }
 
         [Fact]
@@ -135,7 +135,7 @@ namespace Digipolis.Errors.UnitTests.Exceptions.ValidationExceptionTests
             var ex = new ValidationException();
             ex.AddMessages(Defaults.ErrorMessage.Key, messages);
 
-            Assert.Equal(1, ex.Messages.Count);
+            Assert.Single(ex.Messages);
             Assert.Contains(message1, ex.Messages.First().Value);
             Assert.Contains(message2, ex.Messages.First().Value);
         }
