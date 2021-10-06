@@ -9,7 +9,7 @@
     <PackageId>Digipolis.Errors</PackageId>
     <PackageTags>Web;Toolbox;Errors</PackageTags>
     <PackageProjectUrl>https://github.com/digipolisantwerp/errors_aspnetcore</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/digipolisantwerp/errors_aspnetcore/LICENSE.txt</PackageLicenseUrl>
+    <PackageLicense>https://github.com/digipolisantwerp/errors_aspnetcore/LICENSE.txt</PackageLicense>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/digipolisantwerp/errors_aspnetcore</RepositoryUrl>
     <Version>7.0.2</Version>
