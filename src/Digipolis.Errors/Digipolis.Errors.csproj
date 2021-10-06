@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>Errors toolbox.</Description>
-    <VersionPrefix>7.0.1</VersionPrefix>
+    <VersionPrefix>7.0.2</VersionPrefix>
     <Authors>digipolis.be</Authors>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Digipolis.Errors</AssemblyName>
@@ -12,7 +12,7 @@
     <PackageLicenseUrl>https://github.com/digipolisantwerp/errors_aspnetcore/LICENSE.txt</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/digipolisantwerp/errors_aspnetcore</RepositoryUrl>
-    <Version>7.0.1</Version>
+    <Version>7.0.2</Version>
   </PropertyGroup>
 
 </Project>
