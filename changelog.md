@@ -1,5 +1,9 @@
 # Errors Toolbox
 
+## 7.0.3
+
+- TooManyRequestsException added
+
 ## 7.0.2
 
 - errors.md markdown file added with default information for error codes. Applications can use this file as a base for their own error type overview and use it as a reference for the Error.Type property. 

@@ -30,6 +30,12 @@
             internal const string Code = "FORBID001";
         }
 
+        internal class TooManyRequestsException
+        {
+            internal const string Title = "Too many requests.";
+            internal const string Code = "TMREQU001";
+        }
+
         internal class ValidationException
         {
             internal const string Title = "Bad request.";
