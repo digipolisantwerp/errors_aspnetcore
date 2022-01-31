@@ -1,5 +1,9 @@
 # Errors Toolbox
 
+## 7.0.4
+
+- TooManyRequestsException mapping added
+
 ## 7.0.3
 
 - TooManyRequestsException added

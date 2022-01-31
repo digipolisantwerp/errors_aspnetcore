@@ -21,6 +21,7 @@ namespace Digipolis.Errors
             CreateMap<ValidationException>(CreateValidationMap);
             CreateMap<BadGatewayException>(CreateBadGateWayMap);
             CreateMap<GatewayTimeoutException>(CreateGatewayTimeoutMap);
+            CreateMap<TooManyRequestsException>(CreateTooManyRequestsMap);
             Configure();
         }
 
@@ -73,6 +74,14 @@ namespace Digipolis.Errors
             error.Title = Defaults.GatewayTimeoutException.Title;
             error.Code = exception.Code;
             error.Status = (int)HttpStatusCode.GatewayTimeout;
+            error.ExtraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
+        }
+
+        protected virtual void CreateTooManyRequestsMap(Error error, TooManyRequestsException exception)
+        {
+            error.Title = Defaults.TooManyRequestsException.Title;
+            error.Code = exception.Code;
+            error.Status = 429; // not yet available in HttpStatusCode enum
             error.ExtraInfo = exception.Messages.ToDictionary(ms => ms.Key, ms => ms.Value);
         }
 
